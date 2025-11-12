@@ -99,8 +99,8 @@ func NewSphereMesh(stacks, slices int) *Mesh {
 		for slice := 0; slice < slices; slice++ {
 			first := uint32(stack*stride + slice)
 			second := first + uint32(stride)
-			indices = append(indices, first, second, first+1)
-			indices = append(indices, second, second+1, first+1)
+			indices = append(indices, first, first+1, second)
+			indices = append(indices, second, first+1, second+1)
 		}
 	}
 	return NewMesh(vertices, indices)

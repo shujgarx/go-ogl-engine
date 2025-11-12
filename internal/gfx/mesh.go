@@ -1,8 +1,9 @@
 package gfx
 
 import (
-	"github.com/go-gl/gl/v3.3-core/gl"
 	"unsafe"
+
+	"github.com/go-gl/gl/v3.3-core/gl"
 )
 
 type Mesh struct {
