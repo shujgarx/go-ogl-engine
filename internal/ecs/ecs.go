@@ -79,6 +79,8 @@ type RigidBody struct {
 	Velocity   [3]float32
 	Mass       float32
 	UseGravity bool
+	Bounciness float32
+	Damping    float32
 }
 
 type AudioSource struct {
