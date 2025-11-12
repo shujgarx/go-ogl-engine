@@ -1,12 +1,12 @@
-# Go OpenGL Mini-Engine (ECS + Physics + Audio)
+# Go OpenGL Engine
 
-A minimal cross‑platform starter engine in Go with:
+Engine in Go with:
 - OpenGL 3.3 Core renderer (GLFW + go-gl)
-- ECS (entities/components/systems)
-- Simple 3D physics (gravity + floor collision)
-- Audio (generated sine wave via Oto)
-- Texture loading (PNG/JPEG)
-- A feature-complete tech demo scene
+- ECS 
+- Simple 3D physics 
+- Audio
+- Texture loading
+- Materials loading
 
 ## Quick start
 
