@@ -61,7 +61,7 @@ func New(width, height int, title, assets string) (*Engine, error) {
 		return nil, err
 	}
 	gl.Enable(gl.DEPTH_TEST)
-	gl.Enable(gl.CULL_FACE)
+	gl.Enable(gl.CULL_FACE) // ФИКСИТЬ, с gl.Disable(gl.CULL_FACE) Все корректно отображается, однако если включить то полигоны у пирамиды пропадают, и надо проверить остальные фигуры
 
 	fbw, fbh := win.GetFramebufferSize()
 	r := &Engine{

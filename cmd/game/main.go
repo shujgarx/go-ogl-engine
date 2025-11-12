@@ -14,7 +14,7 @@ import (
 	"example.com/go-ogl-engine/internal/engine"
 )
 
-var defaultProject = "daylight"
+var defaultProject = "fallline"
 
 var projectFactories = map[string]func() engine.Project{
 	"daylight": func() engine.Project { return daylight.New() },
