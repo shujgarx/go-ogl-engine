@@ -98,8 +98,10 @@ func NewStore[T any]() *Store[T] {
 }
 
 func (s *Store[T]) Set(e Entity, v T) {
+	if _, exists := s.Data[e]; !exists {
+		s.Order.PushBack(e)
+	}
 	s.Data[e] = v
-	s.Order.PushBack(e)
 }
 
 func (s *Store[T]) Get(e Entity) (T, bool) {

@@ -118,11 +118,25 @@ func (e *Engine) Run() {
 		gl.ActiveTexture(gl.TEXTURE0)
 		gl.BindTexture(gl.TEXTURE_2D, e.Tex.ID)
 
+		view := e.Renderer.Cam.ViewMatrix()
+		proj := e.Renderer.Cam.ProjectionMatrix()
+		gl.UniformMatrix4fv(e.Renderer.UniformView, 1, false, &view[0])
+		gl.UniformMatrix4fv(e.Renderer.UniformProjection, 1, false, &proj[0])
+
+		lp := e.Renderer.LightPosition
+		lc := e.Renderer.LightColor
+		gl.Uniform3f(e.Renderer.UniformLightPos, lp[0], lp[1], lp[2])
+		gl.Uniform3f(e.Renderer.UniformLightColor, lc[0], lc[1], lc[2])
+		camPos := e.Renderer.Cam.Position
+		gl.Uniform3f(e.Renderer.UniformViewPos, camPos[0], camPos[1], camPos[2])
+
 		e.Transforms.ForEach(func(ent ecs.Entity, t *ecs.Transform) {
 			if mr, ok := e.Renderers.Get(ent); ok {
 				_ = mr // single mesh
-				mvp := e.Renderer.Cam.MVP(t.Position, t.Rotation, t.Scale)
-				gl.UniformMatrix4fv(e.Renderer.UniformMVP, 1, false, &mvp[0])
+				model := gfx.ModelMatrix(t.Position, t.Rotation, t.Scale)
+				normal := gfx.NormalMatrix(model)
+				gl.UniformMatrix4fv(e.Renderer.UniformModel, 1, false, &model[0])
+				gl.UniformMatrix3fv(e.Renderer.UniformNormal, 1, false, &normal[0])
 				e.MeshCube.Draw()
 			}
 		})
