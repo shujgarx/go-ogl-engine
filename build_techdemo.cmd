@@ -5,7 +5,7 @@ set "SCRIPT_DIR=%~dp0"
 if "%SCRIPT_DIR:~-1%"=="\" set "SCRIPT_DIR=%SCRIPT_DIR:~0,-1%"
 set "PROJ=%SCRIPT_DIR%"
 set "OUT=%PROJ%\Release"
-set "BIN=%OUT%\bin"
+set "BIN=%OUT%"
 set "DEPS=%PROJ%\deps"
 set "GLFW_VERSION=3.4"
 set "GLFW_PACKAGE=glfw-%GLFW_VERSION%.bin.WIN64"
@@ -36,7 +36,7 @@ set "PATH=%MINGW_BIN%;%PATH%"
 set "CC=%MINGW_BIN%\gcc.exe"
 
 echo === Preparing folders ===
-if not exist "%BIN%" mkdir "%BIN%"
+if not exist "%OUT%" mkdir "%OUT%"
 if exist "%OUT%\assets" rmdir /S /Q "%OUT%\assets"
 if not exist "%DEPS%" mkdir "%DEPS%"
 
@@ -83,9 +83,9 @@ if errorlevel 1 (
 )
 
 echo === Copy assets ===
-xcopy /E /I /Y "%PROJ%\assets" "%OUT%\assets" >nul
+xcopy /E /I /Y "%PROJ%\assets" "%BIN%\assets" >nul
 
-if not exist "%OUT%\assets" (
+if not exist "%BIN%\assets" (
     echo [ERROR] Assets copy failed.
     exit /b 1
 )
@@ -108,7 +108,7 @@ for %%F in (libstdc++-6.dll libgcc_s_seh-1.dll libwinpthread-1.dll) do (
 echo.
 echo === Tech demo build complete ===
 echo Binary: %BIN%\TechDemo.exe
-echo Assets: %OUT%\assets
+echo Assets: %BIN%\assets
 
 echo Launch with: %BIN%\TechDemo.exe
 
