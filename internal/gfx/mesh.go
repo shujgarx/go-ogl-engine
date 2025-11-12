@@ -1,13 +1,13 @@
 package gfx
 
 import (
-	"unsafe"
 	"github.com/go-gl/gl/v3.3-core/gl"
+	"unsafe"
 )
 
 type Mesh struct {
 	VAO, VBO, EBO uint32
-	IndexCount int32
+	IndexCount    int32
 }
 
 func NewMesh(vertices []float32, indices []uint32) *Mesh {

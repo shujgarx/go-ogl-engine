@@ -15,7 +15,8 @@ func checkGLError(where string) {
 func CompileShader(src string, shaderType uint32) (uint32, error) {
 	shader := gl.CreateShader(shaderType)
 	csrc, free := gl.Strs(src + "\x00")
-	gl.ShaderSource(shader, 1, csrc, nil); free()
+	gl.ShaderSource(shader, 1, csrc, nil)
+	free()
 	gl.CompileShader(shader)
 
 	var status int32

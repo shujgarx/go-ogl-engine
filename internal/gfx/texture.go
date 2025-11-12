@@ -13,15 +13,19 @@ type Texture struct{ ID uint32 }
 
 func LoadTexture(path string) (*Texture, error) {
 	f, err := os.Open(path)
-	if err != nil { return nil, err }
+	if err != nil {
+		return nil, err
+	}
 	defer f.Close()
 	img, _, err := image.Decode(f)
-	if err != nil { return nil, err }
+	if err != nil {
+		return nil, err
+	}
 	b := img.Bounds()
 	rgba := image.NewRGBA(b)
-	for y:=b.Min.Y; y<b.Max.Y; y++ {
-		for x:=b.Min.X; x<b.Max.X; x++ {
-			rgba.Set(x, y, img.At(x,y))
+	for y := b.Min.Y; y < b.Max.Y; y++ {
+		for x := b.Min.X; x < b.Max.X; x++ {
+			rgba.Set(x, y, img.At(x, y))
 		}
 	}
 
@@ -35,5 +39,5 @@ func LoadTexture(path string) (*Texture, error) {
 
 	gl.TexImage2D(gl.TEXTURE_2D, 0, gl.SRGB_ALPHA, int32(b.Dx()), int32(b.Dy()), 0, gl.RGBA, gl.UNSIGNED_BYTE, gl.Ptr(rgba.Pix))
 	gl.GenerateMipmap(gl.TEXTURE_2D)
-	return &Texture{ID:id}, nil
+	return &Texture{ID: id}, nil
 }
